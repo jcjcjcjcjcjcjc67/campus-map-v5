@@ -1,0 +1,300 @@
+/* ========== General Body & Layout ========== */
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #e8f0f3;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* ========== Top Bar ========== */
+.top-bar {
+  width: 100%;
+  background-color: #19164f;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 1px 30px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.top-bar img {
+  height: 50px;
+  width: auto;
+}
+
+/* ========== Map Container ========== */
+.map-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 90px;
+  position: relative;
+  height: calc(100vh - 90px);
+}
+
+/* ========== Dropdowns & Buttons ========== */
+.top-bar select {
+  font-size: 18px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+}
+
+/* ========== SVG Map & Shapes ========== */
+svg {
+  width: 100%;
+  height: auto;
+  max-width: 1800px; /* keeps large screens readable */
+  cursor: grab;
+}
+
+polygon, rect {
+  fill: rgba(106, 106, 240, 0.445);
+  cursor: pointer;
+  transition: transform 0.2s ease, fill 0.2s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+polygon:hover, rect:hover {
+  fill: rgba(108, 236, 129, 0.6) !important;
+  transform: scale(1.1);
+}
+
+text {
+  font-size: 30px;
+  font-weight: bold;
+  fill: white;
+  stroke: black;
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+/* ========== Tooltip ========== */
+.tooltip {
+  position: absolute;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: none;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* ========== Popups ========== */
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  color: white;
+  padding: 20px 40px;
+  font-size: 20px;
+  text-align: center;
+  display: none;
+  z-index: 2000;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.popup button {
+  margin-top: 15px;
+  padding: 5px 20px;
+  font-size: 16px;
+  background: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background: #666;
+}
+
+/* ========== Sidebar ========== */
+.right-sidebar {
+  position: fixed;
+  top: 90px;
+  right: 0;
+  width: 250px;
+  height: calc(100% - 90px);
+  background-color: #d3d3d3;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1500;
+  display: none;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+}
+
+.open-sidebar-btn {
+  position: fixed;
+  top: 100px;
+  right: 10px;
+  z-index: 1600;
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+}
+
+.right-sidebar .close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  float: right;
+  cursor: pointer;
+}
+
+/* ========== Search & Buttons ========== */
+#searchInput {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+#legendsBtn,
+#creditsBtn,
+#returnBtn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: brown;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+#legendsBtn:hover,
+#creditsBtn:hover,
+#returnBtn:hover {
+  background-color: #444;
+}
+
+/* ========== Dropdown ========== */
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.dropbtn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #f6af19;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.dropbtn:hover {
+  background-color: #444;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 100%;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  z-index: 1700;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+#removeHighlightsText {
+  color: #2196F3;
+  cursor: pointer;
+  margin-top: 1px; 
+  text-align: center;
+  font-weight: bold;
+}
+
+#removeHighlightsText:hover {
+  text-decoration: underline;
+}
+
+.highlighted {
+  fill: rgba(108, 236, 129, 0.6);
+}
+
+/* ========== Credits Popup ========== */
+.credits-popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #222;
+  color: white;
+  padding: 20px 40px;
+  font-size: 20px;
+  z-index: 3000;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+/* ========== MOBILE & RESPONSIVE ADJUSTMENTS ========== */
+@media (max-width: 768px) {
+  .top-bar {
+    font-size: 20px;
+    padding: 1px 15px;
+  }
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .right-sidebar {
+    width: 80%;
+  }
+
+  .open-sidebar-btn {
+    top: 80px;
+    right: 5px;
+  }
+
+  .dropbtn, #legendsBtn, #creditsBtn, #returnBtn {
+    font-size: 16px;
+    padding: 8px;
+  }
+
+  text {
+    font-size: 18px;
+  }
+}

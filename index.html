@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Map Login</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #e8f0f3; 
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    .top-bar {
+      width: 100%;
+      background-color: #19164f;
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      padding: 1px 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+
+    .top-bar img {
+      height: 50px;
+      width: auto;
+    }
+
+    .login-container {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 400px; 
+      height: 530px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-sizing: border-box;
+      margin-top: 0;
+    }
+
+    .login-container h2 {
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .login-container select,
+    .login-container input,
+    .login-container button {
+      width: 100%;
+      padding: 12px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .login-container button {
+      background-color: brown;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-container button:hover {
+      background-color: #a0522d;
+    }
+
+    .create-account {
+      color: blue;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: underline;
+      margin-top: 5px;
+    }
+
+    /* Popup modal */
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* centers it */
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      display: none;
+      z-index: 2000;
+      width: 90%;       /* responsive width */
+      max-width: 400px; /* won't be too wide on desktop */
+      text-align: center;
+    }
+
+
+    .popup input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    .popup button {
+      padding: 10px 20px;
+      background-color: brown;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .popup button:hover {
+      background-color: #a0522d;
+    }
+
+    .popup-message {
+      color: green;
+      margin-top: 10px;
+    }
+
+    /* Close button for popup */
+    .close-popup {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+      font-weight: bold;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="top-bar">
+    <img src="/images/loalogo.png">
+    Interactive Campus Map Prototype
+  </div>
+
+  <div class="login-container">
+    <h2>Welcome!</h2>
+    <div>
+      <p>For demonstrative purposes; any input will lead to being able to access the campus map.</p>
+    </div>
+
+    <select id="roleSelect">
+      <option value="">Login Type</option>
+      <option value="student">Student</option>
+      <option value="admin">Admin</option>
+    </select>
+
+    <form id="loginForm">
+      <input type="text" placeholder="Username or LRN" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Access</button>
+    </form>
+
+    <div class="create-account" id="createAccountText">No Account? Create Here</div>
+  </div>
+
+  <div class="popup" id="createAccountPopup">
+    <button class="close-popup" id="closeCreateAccount">×</button>
+    <h3>Create Account</h3>
+    <input type="text" placeholder="Student LRN" required>
+    <input type="password" placeholder="Password" required>
+    <button id="submitAccount">Create Account</button>
+    <div class="popup-message" id="accountMessage"></div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const roleSelect = document.getElementById('roleSelect');
+    const createAccountText = document.getElementById('createAccountText');
+    const createAccountPopup = document.getElementById('createAccountPopup');
+    const submitAccount = document.getElementById('submitAccount');
+    const accountMessage = document.getElementById('accountMessage');
+    const closeCreateAccount = document.getElementById('closeCreateAccount');
+
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (roleSelect.value === 'student') {
+        window.location.href = "floor1.html";
+      } else if (roleSelect.value === 'admin') {
+        window.location.href = "admin.html";
+      } else {
+        alert("Select login type please");
+      }
+    });
+
+    createAccountText.addEventListener('click', () => {
+      createAccountPopup.style.display = 'block';
+      accountMessage.textContent = '';
+    });
+
+    submitAccount.addEventListener('click', () => {
+      accountMessage.textContent = "Account created, please do wait for an admin approve";
+    });
+
+    closeCreateAccount.addEventListener('click', () => {
+      createAccountPopup.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === createAccountPopup) {
+        createAccountPopup.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
