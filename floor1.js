@@ -221,28 +221,28 @@ searchInput.addEventListener('keydown', (e) => {
     sidebar.style.display = 'none';
 
     
-    if (targetShape) {
-      const bbox = targetShape.getBBox();
-      const zoomPadding = 1000; 
+if (targetShape) {
+  const bbox = targetShape.getBBox();
 
-      
-      const zoomWidth = bbox.width + zoomPadding * 2;
-      const zoomHeight = bbox.height + zoomPadding * 2;
+  // Use smaller padding on mobile so zooms go in closer
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  const zoomPadding = isMobile ? 300 : 1000;
 
-      
-      const centerX = bbox.x + bbox.width / 2;
-      const centerY = bbox.y + bbox.height / 2;
+  // Calculate zoom area
+  const zoomWidth = bbox.width + zoomPadding * 2;
+  const zoomHeight = bbox.height + zoomPadding * 2;
 
-      
-      viewBox.x = centerX - zoomWidth / 2;
-      viewBox.y = centerY - zoomHeight / 2;
-      viewBox.width = zoomWidth;
-      viewBox.height = zoomHeight;
+  // Center viewBox around the building
+  const centerX = bbox.x + bbox.width / 2;
+  const centerY = bbox.y + bbox.height / 2;
 
-      svg.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`);
-    }
-  }
-});
+  viewBox.x = centerX - zoomWidth / 2;
+  viewBox.y = centerY - zoomHeight / 2;
+  viewBox.width = zoomWidth;
+  viewBox.height = zoomHeight;
+
+  svg.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`);
+}
 
 
 /* ================== CREDITS POPUP ================== */
