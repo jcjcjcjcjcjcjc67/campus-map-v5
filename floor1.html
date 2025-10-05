@@ -9,7 +9,7 @@
 <body>
   <div class="top-bar">
     <img src="images/loalogo.png">
-    Interactive Web Campus Map Prototype
+    Campus Map Prototype
   </div>
 
   <div class="map-container">
@@ -130,17 +130,27 @@
   <div id="right-sidebar" class="right-sidebar">
     <button class="close-btn" onclick="toggleSidebar()">×</button>
     <h2>Campus Map</h2>
-    <div class="dropdown" style="margin-bottom: 10px;">
-      <button class="dropbtn">Floors</button>
-      <div class="dropdown-content">
-        <a href="#">Floor 1</a>
-        <a href="#">Floor 2</a>
-        <a href="#">Floor 3</a>
-        <a href="#">Floor 4</a>
-      </div>
-    </div>
-    <hr style="border: 0; border-top: 1px solid #999; margin: 10px 0;">
-    <input type="text" id="searchInput" placeholder="Search the campus..." style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #aaa; box-sizing: border-box; margin-bottom: 10px;">
+
+<!-- Search bar -->
+<input type="text" id="searchInput" placeholder="Search the campus..." style="width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #aaa; box-sizing: border-box; margin-bottom: 10px;">
+
+<hr style="border: 0; border-top: 1px solid #999; margin: 10px 0;">
+
+<!-- Floors section -->
+
+<div class="dropdown">
+  <button id="floorsBtn" class="dropbtn">Floors</button>
+  <div id="floorsDropdown" class="dropdown-content">
+    <a href="floor1.html">Floor 1</a>
+    <a href="floor2.html">Floor 2</a>
+    <a href="floor3.html">Floor 3</a>
+    <a href="floor4.html">Floor 4</a>
+  </div>
+</div>
+
+
+
+
     <div class="dropdown">
       <button id="legendsBtn" class="dropbtn">Legends</button>
       <div id="legendsDropdown" class="dropdown-content">
