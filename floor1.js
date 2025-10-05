@@ -132,17 +132,35 @@ function toggleSidebar() {
   sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
 }
 
-document.getElementById('legendsBtn').addEventListener('click', () => {
-  const dropdown = document.getElementById('legendsDropdown');
-  dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+function closeAllDropdowns() {
+  document.querySelectorAll('.dropdown-content').forEach(drop => drop.style.display = 'none');
+}
+
+function toggleDropdown(dropdownId) {
+  const dropdown = document.getElementById(dropdownId);
+  const isOpen = dropdown.style.display === 'block';
+  closeAllDropdowns();
+  dropdown.style.display = isOpen ? 'none' : 'block';
+}
+
+// Event listeners for dropdown buttons
+document.getElementById('legendsBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleDropdown('legendsDropdown');
 });
 
+document.getElementById('floorsBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleDropdown('floorsDropdown');
+});
+
+// Close all dropdowns when clicking outside
 window.addEventListener('click', (e) => {
   if (!e.target.matches('.dropbtn')) {
-    const dropdown = document.getElementById('legendsDropdown');
-    if (dropdown.style.display === 'block') dropdown.style.display = 'none';
+    closeAllDropdowns();
   }
 });
+
 
 /* ================== HIGHLIGHT BUILDINGS ================== */
 let activeArea = null;
@@ -187,11 +205,45 @@ searchInput.addEventListener('keydown', (e) => {
     const allShapes = document.querySelectorAll('polygon, rect');
     allShapes.forEach(shape => shape.classList.remove('highlighted'));
     activeArea = null;
+
+    let targetShape = null;
+
+    
     allShapes.forEach(shape => {
-      if (shape.dataset.label === searchValue) shape.classList.add('highlighted');
+      if (shape.dataset.label.toLowerCase() === searchValue.toLowerCase()) {
+        shape.classList.add('highlighted');
+        targetShape = shape;
+      }
     });
+
+    // Close sidebar
+    const sidebar = document.getElementById('right-sidebar');
+    sidebar.style.display = 'none';
+
+    
+    if (targetShape) {
+      const bbox = targetShape.getBBox();
+      const zoomPadding = 1000; 
+
+      
+      const zoomWidth = bbox.width + zoomPadding * 2;
+      const zoomHeight = bbox.height + zoomPadding * 2;
+
+      
+      const centerX = bbox.x + bbox.width / 2;
+      const centerY = bbox.y + bbox.height / 2;
+
+      
+      viewBox.x = centerX - zoomWidth / 2;
+      viewBox.y = centerY - zoomHeight / 2;
+      viewBox.width = zoomWidth;
+      viewBox.height = zoomHeight;
+
+      svg.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`);
+    }
   }
 });
+
 
 /* ================== CREDITS POPUP ================== */
 const creditsBtn = document.getElementById('creditsBtn');
