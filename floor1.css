@@ -84,6 +84,22 @@ text {
   pointer-events: none;
 }
 
+/* ========== Responsive Text Scaling ========== */
+
+@media (max-width: 1024px) {
+  text {
+    font-size: 45px; 
+    stroke-width: 1.5;
+  }
+}
+
+@media (max-width: 768px) {
+  text {
+    font-size: 60px; 
+    stroke-width: 2;
+  }
+}
+
 /* ========== Tooltip ========== */
 .tooltip {
   position: absolute;
@@ -172,6 +188,43 @@ text {
   margin-bottom: 10px;
   border: 1px solid #aaa;
   border-radius: 4px;
+}
+
+/* ========== Floors Header & Buttons ========== */
+.floors-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.floor-btn {
+  width: 100%;
+  padding: 8px;
+  background-color: #f6af19;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sidebar-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: brown; /* same as other sidebar buttons */
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.sidebar-btn:hover {
+  background-color: #444;
+}
+
+.floor-btn:hover {
+  background-color: brown;
 }
 
 #legendsBtn,
@@ -276,8 +329,10 @@ text {
   }
 
   svg {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
   }
 
   .right-sidebar {
